@@ -4,23 +4,29 @@
 
 {!! Form::open() !!}
 
-<h2>新規ユーザー登録</h2>
 
-{{ Form::label('ユーザー名') }}
-{{ Form::text('username',null,['class' => 'input']) }}
+<div class="login_item">
 
-{{ Form::label('メールアドレス') }}
-{{ Form::text('mail',null,['class' => 'input']) }}
+  <h2>新規ユーザー登録</h2>
 
-{{ Form::label('パスワード') }}
-{{ Form::text('password',null,['class' => 'input']) }}
+  {{ Form::label('user name') }}
+  {{ Form::text('username',null,['class' => 'input']) }}
 
-{{ Form::label('パスワード確認') }}
-{{ Form::text('password-confirm',null,['class' => 'input']) }}
+  {{ Form::label('mail adress') }}
+  {{ Form::text('mail',null,['class' => 'input']) }}
 
-{{ Form::submit('登録') }}
+  {{ Form::label('password') }}
+  {{ Form::text('password',null,['class' => 'input']) }}
 
-<p><a href="/login">ログイン画面へ戻る</a></p>
+  {{ Form::label('password comfirm') }}
+  {{ Form::text('password-confirm',null,['class' => 'input']) }}
+
+  {{ Form::submit('登録') }}
+
+  <p><a href="/login">ログイン画面へ戻る</a></p>
+</div>
+
+
 
 {!! Form::close() !!}
 
