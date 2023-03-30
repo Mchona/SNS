@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 
 class RegisterController extends Controller
 {
@@ -71,12 +73,15 @@ class RegisterController extends Controller
     }
 
 
-    // public function registerForm(){
-    //     return view("auth.register");
-    // }
+    //コメントアウト
+    public function registerForm()
+    {
+        return view("auth.register");
+    }
 
-    public function register(Request $request){
-        if($request->isMethod('post')){
+    public function register(Request $request)
+    {
+        if ($request->isMethod('post')) {
             $data = $request->input();
 
             $this->create($data);
@@ -85,7 +90,27 @@ class RegisterController extends Controller
         return view('auth.register');
     }
 
-    public function added(){
+    public function added()
+    {
         return view('auth.added');
+    }
+
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|min:2|max:12',
+            'mail' => 'required|email|min:5|max:40',
+            'password' => 'required|min:8|max:20|alpha_num',
+            'password_confirmation' => 'required|same:password|confirmed',
+        ]);
+
+
+
+        if ($validator->fails()) {
+            Log::error('バリデーションエラーが発生しました。');
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        return redirect()->back()->with('success', 'User created successfully');
     }
 }
